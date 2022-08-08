@@ -6,6 +6,7 @@ import { User } from "./pages/User";
 import { Admin } from "./pages/Admin";
 import { NotFound } from "./common/NotFound";
 import { Products } from "./pages/Admin/components/Products";
+import { Categories } from "./pages/Admin/components/Categories";
 
 function App() {
   return (
@@ -22,7 +23,10 @@ function App() {
           </Route>
           <Route path="admin" element={<Admin />}>
             {/* admin childs route here */}
-            <Route path="products" element={<Products/>}></Route>
+            <Route path="products" element={<Products/>}>
+              
+            </Route>
+            <Route path="categories" element={<Categories/>}></Route>
           </Route>
           <Route path="*" element={<NotFound/>}></Route>
         </Routes>
