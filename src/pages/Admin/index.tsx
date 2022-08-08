@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useState} from "react";
+import React, {FunctionComponent, useEffect, useState} from "react";
 import "antd/dist/antd.css";
 import "./index.css";
 import {
@@ -9,14 +9,27 @@ import {
     BarChartOutlined
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
+import {Outlet, useNavigate} from "react-router-dom";
+import authenticateService from "../../core/services/AuthenticateService";
+import storageService from "../../core/services/StorageService";
 
 const { Header, Sider, Content } = Layout;
 
 const Admin: FunctionComponent = () => {
     const [collapsed, setCollapsed] = useState(false);
+    const navigate = useNavigate();
+
+    useEffect( () => {
+
+
+    }, [])
 
     const sideBarRouter = () => {
         console.log("minhsama")
+    }
+
+    const navigateToPath = (path: string) => {
+        navigate(path, { replace: true });
     }
 
     return (
@@ -32,18 +45,25 @@ const Admin: FunctionComponent = () => {
                             key: "1",
                             icon: <BarChartOutlined />,
                             label: "DashBoard",
-                            onClick: sideBarRouter
+                            onClick: (e) => {
+                                navigateToPath('dashboard');
+                            }
                         },
                         {
                             key: "2",
                             icon: <ShoppingCartOutlined />,
                             label: "Product",
-
+                            onClick: (e) => {
+                                navigateToPath('products');
+                            }
                         },
                         {
                             key: "3",
                             icon: <ContainerOutlined />,
-                            label: "Category"
+                            label: "Category",
+                            onClick: (e) => {
+                                navigateToPath('categories');
+                            }
                         }
                     ]}
                 />
@@ -71,7 +91,7 @@ const Admin: FunctionComponent = () => {
                         minHeight: 1000
                     }}
                 >
-                    Content
+                    <Outlet />
                 </Content>
             </Layout>
         </Layout>

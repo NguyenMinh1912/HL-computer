@@ -1,13 +1,15 @@
 import axios from "axios";
 
-const BASE_URL = "";
+const BASE_URL = "http://localhost:8000";
 
-axios.create({
+const client = axios.create({
     baseURL: BASE_URL
 })
 
-axios.interceptors.request.use(config => {
+client.interceptors.request.use(config => {
     return config;
 })
 
-export default axios;
+
+
+export default client;
