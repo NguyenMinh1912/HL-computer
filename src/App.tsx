@@ -1,7 +1,6 @@
-import React, {useEffect} from "react";
+import React from "react";
 import "./App.css";
-import {Link, Route, Routes} from "react-router-dom";
-import {User} from "./pages/User";
+import {Route, Routes} from "react-router-dom";
 import {Admin} from "./pages/Admin";
 import {NotFound} from "./common/NotFound";
 import {Products} from "./pages/Admin/components/Products";
@@ -10,7 +9,6 @@ import {DashBoard} from "./pages/Admin/components/DashBoard";
 import authenticateService from "./core/services/AuthenticateService";
 import Login from "./pages/Login/Login";
 import {PrivateRoute} from "./common/PrivateRoute/PrivateRoute";
-import {Simulate} from "react-dom/test-utils";
 
 function App() {
 

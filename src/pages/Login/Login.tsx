@@ -1,11 +1,32 @@
-import React from 'react';
+import React, {FunctionComponent} from 'react';
 import 'antd/dist/antd.css';
 import {Button, Checkbox, Form, Input} from 'antd';
+import authenticateService from "../../core/services/AuthenticateService";
+import LoginRequest from "../Admin/model/request/LoginRequest";
+import {useNavigate} from "react-router-dom";
+import LoginResponse from "../Admin/model/response/LoginResponse";
+import storageService from "../../core/services/StorageService";
 
 
-const Login = () => {
+const Login: FunctionComponent = () => {
+
+    const [form] = Form.useForm();
+
+    const navigate = useNavigate();
+
+    // @ts-ignore
+    const loginRequest = new LoginRequest();
+
     const onFinish = (values: any) => {
-        console.log('Success:', values);
+        loginRequest.username = values.username;
+        loginRequest.password = values.password;
+        authenticateService.login(loginRequest).then(value => {
+            storageService.set('userInfo',value);
+        });
+        if (authenticateService.isLogin() && authenticateService.isAdmin()) {
+            console.log(authenticateService.isAdmin())
+            navigate("/dashboard", {replace: true});
+        }
     };
 
     const onFinishFailed = (errorInfo: any) => {
@@ -14,6 +35,7 @@ const Login = () => {
 
     return (
         <Form
+            form={form}
             name="basic"
             labelCol={{
                 span: 8,

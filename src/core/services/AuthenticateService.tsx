@@ -1,19 +1,10 @@
 import client from "../server";
 import storageService from "./StorageService";
+import LoginRequest from "../../pages/Admin/model/request/LoginRequest";
+import LoginResponse from "../../pages/Admin/model/response/LoginResponse";
 
-class LoginResponse {
-    jwttoken!: string;
-    username!: string;
-    email!: string;
-    phoneNumber!: string;
-    address!: string;
-    role!: { authority: string }[];
-}
 
-class LoginRequest {
-    username!: string;
-    password!: string;
-}
+
 
 class AuthenticateService {
 
@@ -27,6 +18,7 @@ class AuthenticateService {
             const userInfo = storageService.get<LoginResponse>('userInfo');
             return !!userInfo;
         } catch (e) {
+            console.error("AuthenticateService.isLogin ERROR = {}",e)
             return false;
         }
     }
@@ -49,6 +41,12 @@ class AuthenticateService {
 
     getCurrentUser(): LoginResponse {
         return storageService.get<LoginResponse>('userInfo');
+    }
+
+    logout(): void{
+        if(this.isLogin()){
+            localStorage.setItem('userInfo','');
+        }
     }
 
 }
