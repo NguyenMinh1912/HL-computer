@@ -7,7 +7,8 @@ class StorageService {
     get<T>(key: string): T  {
         const data = localStorage.getItem(key);
         if (!data){
-            throw new Error('No data available');
+            // @ts-ignore
+            return undefined;
         }
         return JSON.parse(data) as T;
     }

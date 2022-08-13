@@ -15,6 +15,7 @@ import {Link, Outlet, useNavigate} from "react-router-dom";
 import {ItemType} from "antd/lib/menu/hooks/useItems";
 import events from "node:events";
 import authenticateService from "../../core/services/AuthenticateService";
+import {LogOutButton} from "./common/Header/LogOutButton";
 
 const {Header, Sider, Content} = Layout;
 
@@ -26,8 +27,6 @@ const handleMenuClick = (e: events) => {
     message.info('Click on menu item.');
 };
 
-// // eslint-disable-next-line react-hooks/rules-of-hooks
-// const navigate = useNavigate();
 
 const items: ItemType[] = [
     {
@@ -69,11 +68,8 @@ const menu = (
             {
                 label: 'Logout',
                 key: '3',
-                icon: <LogoutOutlined />,
-                onClick: () => {
-                    authenticateService.logout();
-                    // navigate('/login', {replace:true})
-                }
+                icon: <LogOutButton/>,
+
             },
         ]}
     />

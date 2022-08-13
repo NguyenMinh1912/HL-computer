@@ -4,8 +4,6 @@ import LoginRequest from "../../pages/Admin/model/request/LoginRequest";
 import LoginResponse from "../../pages/Admin/model/response/LoginResponse";
 
 
-
-
 class AuthenticateService {
 
     async login(request: LoginRequest): Promise<LoginResponse> {
@@ -18,7 +16,7 @@ class AuthenticateService {
             const userInfo = storageService.get<LoginResponse>('userInfo');
             return !!userInfo;
         } catch (e) {
-            console.error("AuthenticateService.isLogin ERROR = {}",e)
+            console.error("AuthenticateService.isLogin ERROR = {}", e)
             return false;
         }
     }
@@ -43,12 +41,19 @@ class AuthenticateService {
         return storageService.get<LoginResponse>('userInfo');
     }
 
-    logout(): void{
-        if(this.isLogin()){
-            localStorage.setItem('userInfo','');
+    logout(): void {
+        if (this.isLogin()) {
+            localStorage.setItem('userInfo', '');
         }
     }
 
+    getToken(): string | undefined {
+        let currentUser = this.getCurrentUser();
+        if (!currentUser){
+            return undefined;
+        }
+        return 'Bearer ' + currentUser.jwttoken;
+    }
 }
 
 export default new AuthenticateService();

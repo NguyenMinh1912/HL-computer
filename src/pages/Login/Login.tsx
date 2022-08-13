@@ -4,7 +4,6 @@ import {Button, Checkbox, Form, Input} from 'antd';
 import authenticateService from "../../core/services/AuthenticateService";
 import LoginRequest from "../Admin/model/request/LoginRequest";
 import {useNavigate} from "react-router-dom";
-import LoginResponse from "../Admin/model/response/LoginResponse";
 import storageService from "../../core/services/StorageService";
 
 
@@ -17,16 +16,18 @@ const Login: FunctionComponent = () => {
     // @ts-ignore
     const loginRequest = new LoginRequest();
 
-    const onFinish = (values: any) => {
+    const onFinish = async (values: any) => {
         loginRequest.username = values.username;
         loginRequest.password = values.password;
-        authenticateService.login(loginRequest).then(value => {
-            storageService.set('userInfo',value);
+
+        const userInfo = await authenticateService.login(loginRequest).then(value => {
+            storageService.set('userInfo', value);
         });
+
         if (authenticateService.isLogin() && authenticateService.isAdmin()) {
-            console.log(authenticateService.isAdmin())
             navigate("/dashboard", {replace: true});
         }
+
     };
 
     const onFinishFailed = (errorInfo: any) => {

@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import {Route, Routes} from "react-router-dom";
+import {Route, Router, Routes} from "react-router-dom";
 import {Admin} from "./pages/Admin";
 import {NotFound} from "./common/NotFound";
 import {Products} from "./pages/Admin/components/Products";
@@ -11,7 +11,6 @@ import Login from "./pages/Login/Login";
 import {PrivateRoute} from "./common/PrivateRoute/PrivateRoute";
 
 function App() {
-
 
     return (
         <div className="App">
