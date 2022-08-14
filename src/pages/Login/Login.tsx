@@ -9,8 +9,6 @@ import storageService from "../../core/services/StorageService";
 
 const Login: FunctionComponent = () => {
 
-    const [form] = Form.useForm();
-
     const navigate = useNavigate();
 
     // @ts-ignore
@@ -36,7 +34,6 @@ const Login: FunctionComponent = () => {
 
     return (
         <Form
-            form={form}
             name="basic"
             labelCol={{
                 span: 8,

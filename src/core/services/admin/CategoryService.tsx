@@ -11,6 +11,11 @@ class CategoryService {
         }).then(res => res.data);
     }
 
+    getAllCategory(): Promise<BaseResponse<CategoryResponse>> {
+        return client.get("/hoanglong/api/v1/category")
+            .then(res => res.data)
+    }
+
 }
 
 export default new CategoryService();

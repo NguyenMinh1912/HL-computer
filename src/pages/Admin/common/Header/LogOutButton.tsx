@@ -7,12 +7,13 @@ const LogOutButton: FunctionComponent = () => {
 
     const navigate = useNavigate();
 
-    const logoutHandle = () => {
-        authenticateService.logout();
+    const logoutHandle = async () => {
+        console.log("logout")
+        await authenticateService.logout();
         navigate('/login', {replace:true})
     }
 
-    return  <LogoutOutlined onClick={logoutHandle}/>;
+    return <LogoutOutlined onClick={logoutHandle}/>;
 }
 
 export {LogOutButton};

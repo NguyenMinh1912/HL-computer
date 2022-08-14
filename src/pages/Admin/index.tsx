@@ -7,26 +7,14 @@ import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
     ShoppingCartOutlined,
-    UserOutlined,
-    LogoutOutlined
+    UserOutlined
 } from "@ant-design/icons";
-import {Button, Dropdown, Layout, Menu, message} from "antd";
-import {Link, Outlet, useNavigate} from "react-router-dom";
+import {Button, Dropdown, Layout, Menu} from "antd";
+import {Link, Outlet} from "react-router-dom";
 import {ItemType} from "antd/lib/menu/hooks/useItems";
-import events from "node:events";
-import authenticateService from "../../core/services/AuthenticateService";
 import {LogOutButton} from "./common/Header/LogOutButton";
 
 const {Header, Sider, Content} = Layout;
-
-const handleButtonClick = () => {
-    message.info('Click on left button.');
-};
-
-const handleMenuClick = (e: events) => {
-    message.info('Click on menu item.');
-};
-
 
 const items: ItemType[] = [
     {
@@ -58,23 +46,21 @@ const menu = (
             {
                 label: '1st menu item',
                 key: '1',
-                icon: <UserOutlined />,
+                icon: <UserOutlined/>,
             },
             {
                 label: '2nd menu item',
                 key: '2',
-                icon: <UserOutlined />,
+                icon: <UserOutlined/>,
             },
             {
                 label: 'Logout',
                 key: '3',
                 icon: <LogOutButton/>,
-
             },
         ]}
     />
 );
-
 
 
 const Admin: FunctionComponent = () => {
@@ -112,7 +98,7 @@ const Admin: FunctionComponent = () => {
                     }}
                 >
                     <div className="user-icon">
-                        <Dropdown.Button overlay={menu} placement="topRight" icon={<UserOutlined />}>
+                        <Dropdown.Button overlay={menu} placement="topRight" icon={<UserOutlined/>}>
                         </Dropdown.Button>
                     </div>
                 </Header>

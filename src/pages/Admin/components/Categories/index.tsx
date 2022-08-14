@@ -3,17 +3,28 @@ import CategoryRequest from "../../model/request/CategoryRequest";
 import categoryService from "../../../../core/services/admin/CategoryService";
 import {Table, TablePaginationConfig} from "antd";
 import CategoryResponse from "../../model/response/CategoryResponse";
+import {CreateModal} from "./create-modal";
 
 const columns = [
     {
         title: 'id',
         dataIndex: 'id',
-        sorter: true,
         width: '5%',
     },
     {
-        title: 'Tên',
+        title: 'Name',
         dataIndex: 'name',
+        sorter: true,
+    },
+    {
+        title: 'Creat Date',
+        dataIndex: 'createDate',
+        sorter: true,
+    },
+    {
+        title: 'Update Date',
+        dataIndex: 'updateDate',
+        sorter: true,
     },
 ];
 
@@ -56,17 +67,22 @@ const Categories = () => {
 
 
     return (
-        <Table
-            columns={columns}
-            rowKey={(record) => record.id}
-            dataSource={data}
-            pagination={{
-                ...pagination,
-                total: totalCategories
-            }}
-            loading={loading}
-            onChange={handleTableChange}
-        />
+        <>
+            <CreateModal />
+
+            <Table
+
+                columns={columns}
+                rowKey={(record) => record.id}
+                dataSource={data}
+                pagination={{
+                    ...pagination,
+                    total: totalCategories
+                }}
+                loading={loading}
+                onChange={handleTableChange}
+            />
+        </>
     );
 }
 
