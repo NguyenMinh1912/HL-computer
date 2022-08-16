@@ -9,6 +9,8 @@ import {DashBoard} from "./pages/Admin/components/DashBoard";
 import authenticateService from "./core/services/AuthenticateService";
 import Login from "./pages/Login/Login";
 import {PrivateRoute} from "./common/PrivateRoute/PrivateRoute";
+import {ToastContainer} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
 
@@ -20,6 +22,7 @@ function App() {
       <Link to={'admin'}>
         Admin page
       </Link> */}
+            <ToastContainer />
             <Routes>
                 {/*<Route path="" element={<User />}>*/}
                 {/*  /!* user childs route here *!/*/}

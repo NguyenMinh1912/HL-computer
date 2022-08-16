@@ -1,10 +1,10 @@
 import ConfigTypeEnum from "../../enums/ConfigTypeEnum";
 
 class CategoryRequest{
+    id?: number;
     page?: number;
     size?: number;
     name?: string | null;
-    code?: string;
     type?: ConfigTypeEnum | null;
     parentId?: number;
 }

@@ -7,6 +7,7 @@ class CategoryResponse {
     createBy!: string;
     updateBy!: string;
     type!: string;
+    parentId!: number;
 
 }
 

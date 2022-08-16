@@ -21,6 +21,14 @@ class CategoryService {
         return client.post("/hoanglong/api/v1/category", request).then(res => res.data);
     }
 
+    deleteById(id: number): Promise<BaseResponse<any>>{
+        return client.post("/hoanglong/api/v1/category/delete/" + id).then(res => res.data);
+    }
+
+    getById(id: number): Promise<BaseResponse<any>>{
+        return client.get("/hoanglong/api/v1/category/get/" + id).then(res => res.data);
+    }
+
 }
 
 export default new CategoryService();

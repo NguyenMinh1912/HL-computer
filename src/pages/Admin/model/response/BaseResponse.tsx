@@ -1,5 +1,5 @@
 class BaseResponse<T> {
-    status!: string;
+    statusCode!: string;
     message!: string;
     result!: {
         data: T[],

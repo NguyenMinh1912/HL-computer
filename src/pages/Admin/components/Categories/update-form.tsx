@@ -1,30 +1,34 @@
 import {useEffect, useState} from "react";
-import {Button, Form, Input, Modal, Select} from "antd";
+import {Form, Input, Modal, Select} from "antd";
 import ConfigTypeService from "../../../../core/services/admin/ConfigTypeService";
 import ConfigTypeConstant from "../../../../core/constant/ConfigTypeConstant";
 import CategoryService from "../../../../core/services/admin/CategoryService";
-import CategoryRequest from "../../model/request/CategoryRequest";
 import categoryService from "../../../../core/services/admin/CategoryService";
+import CategoryRequest from "../../model/request/CategoryRequest";
 import NotificationUtils from "../../../../common/Utils/NotificationUtils";
+import CategoryResponse from "../../model/response/CategoryResponse";
 
 
 // @ts-ignore
-const CreateForm = ({visible, onCancel,isLoadData}) => {
-
+const UpdateForm = ({id,visible, onCancel}) => {
     const [componentDisabled, setComponentDisabled] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
     const [form] = Form.useForm();
     const [config, setConfig] = useState([{meaning: "UNDEFINED"}]);
     const [category, setCategory] = useState([{name: ""}]);
+    const [currentCategory, setCurrentCategory] = useState<CategoryResponse>(new CategoryResponse());
 
     useEffect(() => {
         (async () => {
             const configRes = await ConfigTypeService.getConfigByType(ConfigTypeConstant.PC_TYPE);
             const cateRes = await CategoryService.getAllCategory();
+            const currentCateg = await CategoryService.getById(id.id);
             // @ts-ignore
             setConfig(configRes.result);
             // @ts-ignore
             setCategory(cateRes.result);
+            // @ts-ignore
+            setCurrentCategory(currentCateg.result);
         })();
     }, []);
 
@@ -47,17 +51,18 @@ const CreateForm = ({visible, onCancel,isLoadData}) => {
                 form.validateFields()
                     .then((value: any) => {
                         const categoryRequest: CategoryRequest = {
+                            id: id,
                             name: value.name,
                             parentId: value.parentId
                         }
+                        console.log(categoryRequest);
                         categoryService.saveOrUpdate(categoryRequest)
                             .then((res) => {
                                 if(res.statusCode === '200'){
-                                    NotificationUtils.successNoti("Thêm danh mục");
-                                    isLoadData();
+                                    NotificationUtils.successNoti("Cập nhật danh mục");
                                 }
                             }).catch((error) => {
-                            NotificationUtils.failNoti("Thêm danh mục");
+                            NotificationUtils.failNoti("Cập nhật danh mục");
                         });
                         visible = false;
                     }).catch((error) => {
@@ -92,7 +97,7 @@ const CreateForm = ({visible, onCancel,isLoadData}) => {
                         }
                     ]}
                 >
-                    <Input/>
+                    <Input defaultValue={currentCategory.name}/>
                 </Form.Item>
                 <Form.Item
                     label="Chọn danh mục cha:"
@@ -105,6 +110,7 @@ const CreateForm = ({visible, onCancel,isLoadData}) => {
                     ]}
                 >
                     <Select
+                        defaultValue={currentCategory.parentId}
                         showSearch
                         placeholder="Chọn danh mục cha"
                         optionFilterProp="children"
@@ -124,4 +130,4 @@ const CreateForm = ({visible, onCancel,isLoadData}) => {
     )
 }
 
-export {CreateForm};
+export {UpdateForm};

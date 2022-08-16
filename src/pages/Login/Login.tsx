@@ -5,6 +5,7 @@ import authenticateService from "../../core/services/AuthenticateService";
 import LoginRequest from "../Admin/model/request/LoginRequest";
 import {useNavigate} from "react-router-dom";
 import storageService from "../../core/services/StorageService";
+import NotificationUtils from "../../common/Utils/NotificationUtils";
 
 
 const Login: FunctionComponent = () => {
@@ -25,6 +26,7 @@ const Login: FunctionComponent = () => {
         if (authenticateService.isLogin() && authenticateService.isAdmin()) {
             navigate("/dashboard", {replace: true});
         }
+        NotificationUtils.successNoti("Đăng nhập");
 
     };
 

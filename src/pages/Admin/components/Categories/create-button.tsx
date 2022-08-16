@@ -1,11 +1,11 @@
-import {FunctionComponent, useState} from "react";
+import {useState} from "react";
 import 'antd/dist/antd.css';
-import {Button, Form, Modal} from "antd";
+import {Button} from "antd";
 import {CreateForm} from "./create-form";
 
 
 // @ts-ignore
-const CreateModal: FunctionComponent = () => {
+const CreateButton = ({isLoadData}) => {
 
     const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -23,6 +23,7 @@ const CreateModal: FunctionComponent = () => {
             </Button>
             <CreateForm
                 visible={isModalVisible}
+                isLoadData={isLoadData}
                 onCancel={() => {
                     setIsModalVisible(false)
                 }}
@@ -31,4 +32,4 @@ const CreateModal: FunctionComponent = () => {
     )
 }
 
-export {CreateModal};
+export {CreateButton};
