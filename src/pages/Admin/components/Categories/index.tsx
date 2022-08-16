@@ -1,9 +1,10 @@
 import {useEffect, useState} from "react";
 import CategoryRequest from "../../model/request/CategoryRequest";
 import categoryService from "../../../../core/services/admin/CategoryService";
-import {Table, TablePaginationConfig} from "antd";
+import {Button, Table, TablePaginationConfig} from "antd";
 import CategoryResponse from "../../model/response/CategoryResponse";
 import {CreateModal} from "./create-modal";
+import ConfigTypeEnum from "../../enums/ConfigTypeEnum";
 
 const columns = [
     {
@@ -26,6 +27,15 @@ const columns = [
         dataIndex: 'updateDate',
         sorter: true,
     },
+    {
+        title: 'Action',
+        render: (record: any) =>
+             (
+                <Button title="Sure to delete?">
+                    Delete
+                </Button>
+            )
+    }
 ];
 
 const Categories = () => {
@@ -40,7 +50,7 @@ const Categories = () => {
 
     const [request, setRequest] = useState<CategoryRequest>({
         name: 'PC GAMING',
-        type: '1'
+        type: ConfigTypeEnum.CATEGORY
     })
 
 
@@ -59,7 +69,7 @@ const Categories = () => {
         const res = await categoryService.getCategoryWithCondition({
             ...request,
             page: (pagination?.current || 1) - 1,
-            limit: pagination.pageSize
+            size: pagination.pageSize
         });
         setData(res.result.data);
         setTotalCategories(res.result.totalElements);

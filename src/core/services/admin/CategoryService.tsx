@@ -16,6 +16,11 @@ class CategoryService {
             .then(res => res.data)
     }
 
+    saveOrUpdate(request: CategoryRequest): Promise<BaseResponse<any>>{
+        console.log(request)
+        return client.post("/hoanglong/api/v1/category", request).then(res => res.data);
+    }
+
 }
 
 export default new CategoryService();

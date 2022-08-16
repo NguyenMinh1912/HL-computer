@@ -1,12 +1,14 @@
-import { useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {Button, Form, Input, Modal, Select} from "antd";
 import ConfigTypeService from "../../../../core/services/admin/ConfigTypeService";
 import ConfigTypeConstant from "../../../../core/constant/ConfigTypeConstant";
 import CategoryService from "../../../../core/services/admin/CategoryService";
+import CategoryRequest from "../../model/request/CategoryRequest";
+import categoryService from "../../../../core/services/admin/CategoryService";
 
 
 // @ts-ignore
-const CreateForm = ({visible,onCancel}) => {
+const CreateForm = ({visible, onCancel}) => {
 
     const [componentDisabled, setComponentDisabled] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
@@ -14,10 +16,11 @@ const CreateForm = ({visible,onCancel}) => {
     const [config, setConfig] = useState([{meaning: "UNDEFINED"}]);
     const [category, setCategory] = useState([{name: ""}]);
 
-    useEffect( () => {
+    useEffect(() => {
         (async () => {
             const configRes = await ConfigTypeService.getConfigByType(ConfigTypeConstant.PC_TYPE);
             const cateRes = await CategoryService.getAllCategory();
+            console.log(configRes)
             // @ts-ignore
             setConfig(configRes.result);
             // @ts-ignore
@@ -47,6 +50,18 @@ const CreateForm = ({visible,onCancel}) => {
             onCancel={onCancel}
             onOk={() => {
                 form.validateFields()
+                    .then((value: any) => {
+                        const categoryRequest: CategoryRequest = {
+                            name: value.name,
+                            code: value.code,
+                            parentId: value.parentId
+                        }
+                        // categoryService.saveOrUpdate(categoryRequest);
+                        visible = false;
+                    }).catch((error) => {
+                    console.log("ERROR: ", error)
+                })
+
             }}
         >
             <Form
@@ -57,7 +72,6 @@ const CreateForm = ({visible,onCancel}) => {
                 wrapperCol={{
                     span: 14,
                 }}
-                onFinish={onFinish}
                 layout="horizontal"
                 onValuesChange={onFormLayoutChange}
                 disabled={componentDisabled}
@@ -80,7 +94,7 @@ const CreateForm = ({visible,onCancel}) => {
                 </Form.Item>
                 <Form.Item
                     label="Chọn loại danh mục:"
-                    name="type"
+                    name="code"
                     rules={[
                         {
                             required: true,
@@ -90,7 +104,7 @@ const CreateForm = ({visible,onCancel}) => {
                 >
                     <Select
                         showSearch
-                        placeholder = "Chọn loại danh mục"
+                        placeholder="Chọn loại danh mục"
                         optionFilterProp="children"
                         onSearch={onSearch}
                     >
@@ -104,7 +118,7 @@ const CreateForm = ({visible,onCancel}) => {
                 </Form.Item>
                 <Form.Item
                     label="Chọn danh mục cha:"
-                    name="parent_id"
+                    name="parentId"
                     rules={[
                         {
                             required: true,
@@ -114,7 +128,7 @@ const CreateForm = ({visible,onCancel}) => {
                 >
                     <Select
                         showSearch
-                        placeholder = "Chọn danh mục cha"
+                        placeholder="Chọn danh mục cha"
                         optionFilterProp="children"
                         onSearch={onSearch}
                     >
