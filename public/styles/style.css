@@ -1,0 +1,26 @@
+.header-top .bg-icon::before {
+    background-image: url("https://hoanglongcomputer.vn/static/assets/default/images/hoanglong_sprite.png?v=1");
+}
+
+.sprite{
+    background-image: url("https://hoanglongcomputer.vn/static/assets/default/images/hoanglong_sprite.png?v=1");
+}
+
+.header-bottom .header-social a::before{
+    background: url("https://hoanglongcomputer.vn/static/assets/default/images/hoanglong_sprite.png?v=1")
+}
+
+.menu-container{
+    position: unset !important;
+}
+
+.header-mid{
+    margin-bottom: 75px;
+}
+
+.header-mid .header-search{
+    width: 670px;
+}
+.header-top{
+    height: 50px;
+}

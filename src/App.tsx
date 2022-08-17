@@ -11,6 +11,7 @@ import Login from "./pages/Login/Login";
 import {PrivateRoute} from "./common/PrivateRoute/PrivateRoute";
 import {ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {User} from "./pages/User";
 
 function App() {
 
@@ -24,10 +25,10 @@ function App() {
       </Link> */}
             <ToastContainer />
             <Routes>
-                {/*<Route path="" element={<User />}>*/}
-                {/*  /!* user childs route here *!/*/}
-                {/*</Route>*/}
-                <Route path="" element={<PrivateRoute isGuard={authenticateService.isAdmin()} >
+                <Route path="" element={<User />}>
+                  {/* user childs route here */}
+                </Route>
+                <Route path="admin" element={<PrivateRoute isGuard={authenticateService.isAdmin()} >
                 {/*<Route path="" element={<PrivateRoute isGuard={true} >*/}
                     <Admin/>
                 </PrivateRoute>}>

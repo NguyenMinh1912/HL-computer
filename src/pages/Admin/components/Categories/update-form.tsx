@@ -51,11 +51,10 @@ const UpdateForm = ({id,visible, onCancel}) => {
                 form.validateFields()
                     .then((value: any) => {
                         const categoryRequest: CategoryRequest = {
-                            id: id,
+                            id: id.id,
                             name: value.name,
                             parentId: value.parentId
                         }
-                        console.log(categoryRequest);
                         categoryService.saveOrUpdate(categoryRequest)
                             .then((res) => {
                                 if(res.statusCode === '200'){
